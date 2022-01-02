@@ -35,17 +35,21 @@ public class MainUserInterface extends javax.swing.JFrame {
         bookBtn = new javax.swing.JButton();
         memBtn = new javax.swing.JButton();
         issueBtn = new javax.swing.JButton();
-        returnBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         backbtn = new javax.swing.JButton();
+        returnBtn1 = new javax.swing.JButton();
+        teachRequest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Edwardian Script ITC", 1, 24)); // NOI18N
         jLabel1.setText("Library");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Edwardian Script ITC", 1, 24)); // NOI18N
         jLabel2.setText("Management");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 181, -1));
 
         categoryBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         categoryBtn.setText("Category");
@@ -54,6 +58,7 @@ public class MainUserInterface extends javax.swing.JFrame {
                 categoryBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(categoryBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 106, 181, 37));
 
         authorBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         authorBtn.setText("Author");
@@ -62,6 +67,7 @@ public class MainUserInterface extends javax.swing.JFrame {
                 authorBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(authorBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 181, 37));
 
         PubBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         PubBtn.setText("Publisher");
@@ -70,6 +76,7 @@ public class MainUserInterface extends javax.swing.JFrame {
                 PubBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(PubBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 181, 37));
 
         bookBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         bookBtn.setText("Book");
@@ -78,6 +85,7 @@ public class MainUserInterface extends javax.swing.JFrame {
                 bookBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(bookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 181, 37));
 
         memBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         memBtn.setText("Member");
@@ -86,6 +94,7 @@ public class MainUserInterface extends javax.swing.JFrame {
                 memBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(memBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 181, 37));
 
         issueBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         issueBtn.setText("Issue");
@@ -94,9 +103,7 @@ public class MainUserInterface extends javax.swing.JFrame {
                 issueBtnActionPerformed(evt);
             }
         });
-
-        returnBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        returnBtn.setText("Return");
+        getContentPane().add(issueBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 181, 37));
 
         logoutBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         logoutBtn.setText("Logout");
@@ -105,6 +112,7 @@ public class MainUserInterface extends javax.swing.JFrame {
                 logoutBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(logoutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 350, 181, 37));
 
         backbtn.setIcon(new javax.swing.ImageIcon("/home/rakibul/Documents/LibraryManagement/backIcon.png")); // NOI18N
         backbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -112,61 +120,27 @@ public class MainUserInterface extends javax.swing.JFrame {
                 backbtnActionPerformed(evt);
             }
         });
+        getContentPane().add(backbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 38, 31));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(issueBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(memBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PubBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(authorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(categoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(74, 74, 74))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(54, 54, 54)
-                        .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(categoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(authorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PubBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(memBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(issueBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(returnBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-        );
+        returnBtn1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        returnBtn1.setText("Return");
+        returnBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnBtn1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(returnBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 181, 37));
 
-        setSize(new java.awt.Dimension(346, 517));
+        teachRequest.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        teachRequest.setText("Teachers Request");
+        teachRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teachRequestActionPerformed(evt);
+            }
+        });
+        getContentPane().add(teachRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 181, 37));
+
+        setSize(new java.awt.Dimension(550, 473));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -218,6 +192,18 @@ public class MainUserInterface extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_issueBtnActionPerformed
 
+    private void returnBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBtn1ActionPerformed
+        // TODO add your handling code here:
+        new ReturnBook().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_returnBtn1ActionPerformed
+
+    private void teachRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teachRequestActionPerformed
+        // TODO add your handling code here:
+        new TeacherIssueBooks().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_teachRequestActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,6 +250,7 @@ public class MainUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton memBtn;
-    private javax.swing.JButton returnBtn;
+    private javax.swing.JButton returnBtn1;
+    private javax.swing.JButton teachRequest;
     // End of variables declaration//GEN-END:variables
 }

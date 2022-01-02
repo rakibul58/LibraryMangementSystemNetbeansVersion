@@ -31,6 +31,7 @@ public class TeacherLoginRegister extends javax.swing.JFrame {
     
     Connection con ;
     PreparedStatement pst , login ;
+    public static String teacherIdString;
     
     public void connect(){
         try {
@@ -329,8 +330,7 @@ public class TeacherLoginRegister extends javax.swing.JFrame {
          try {
             // TODO add your handling code here:
             String user = UserID.getText();
-            String pass;
-            pass = Pass.getText();
+            String pass = Pass.getText();
             
             login = (PreparedStatement) con.prepareStatement("SELECT * FROM teacher WHERE userID=? and password=?");
             login.setString(1, user);
@@ -338,7 +338,8 @@ public class TeacherLoginRegister extends javax.swing.JFrame {
             ResultSet rs = login.executeQuery();
             
             if(rs.next()) {
-                new MainUserInterface().setVisible(true);
+                teacherIdString = rs.getString("teacherID");
+                new TeacherInterFace().setVisible(true);
                 this.setVisible(false);
                 cleanTxt();
             } else {
@@ -362,6 +363,10 @@ public class TeacherLoginRegister extends javax.swing.JFrame {
         department.setText("");
         email.setText("");
         regPass.setText("");
+    }
+    
+    public static String getteacherId(){
+        return teacherIdString;
     }
     /**
      * @param args the command line arguments

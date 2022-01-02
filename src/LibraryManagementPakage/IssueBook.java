@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,7 +36,6 @@ public class IssueBook extends javax.swing.JFrame {
         connect();
        
         Book_Load();
-        Books();
        // publisherLoad();
         SelecMem.setSelectedIndex(-1);
         //BookBox.setSelectedIndex(-1);
@@ -44,8 +44,9 @@ public class IssueBook extends javax.swing.JFrame {
     
     
     Connection con ;
-    PreparedStatement pst , update , delete ;
+    PreparedStatement pst , issue , update ;
     int id ;
+    String MemberInput;
     
     public void connect(){
         try {
@@ -61,18 +62,21 @@ public class IssueBook extends javax.swing.JFrame {
     
     public void clearAll(){
         IdBox.removeAllItems();
-        BookBox.setSelectedIndex(-1);
-        IssueDate.setCalendar(null);
-        returnDate.setCalendar(null);
-        authorLabel.setText("");
-        bookLabel.setText("");
+        BookBox.removeAllItems();
+        
+       
+      
+        
     }
     
     
     public void Books(){
         try {
-            pst = (PreparedStatement) con.prepareStatement("SELECT id FROM StudentBooks");
+            MemberInput = SelecMem.getSelectedItem().toString();
+            pst = (PreparedStatement) con.prepareStatement("SELECT id FROM StudentBooks where rec=?");
+            pst.setString(1, MemberInput );
             ResultSet rs = pst.executeQuery();
+            BookBox.removeAllItems();
             while (rs.next()) {
                 
                 String itemString = String.valueOf(rs.getInt("id"));
@@ -111,42 +115,37 @@ public class IssueBook extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         issueBtn = new javax.swing.JButton();
-        DeleteBtn = new javax.swing.JButton();
-        UpdateBtn = new javax.swing.JButton();
         BookBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         IdBox = new javax.swing.JComboBox<>();
         SelecMem = new javax.swing.JComboBox<>();
-        IssueDate = new com.toedter.calendar.JDateChooser();
-        returnDate = new com.toedter.calendar.JDateChooser();
-        bookLabel = new javax.swing.JLabel();
-        bookLabel1 = new javax.swing.JLabel();
-        authorLabel = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("C059", 1, 18)); // NOI18N
         jLabel1.setText("IIUC Library");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 20, 132, 29));
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel2.setText("Search");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 62, -1, -1));
 
         searchTxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchTxtKeyReleased(evt);
             }
         });
+        getContentPane().add(searchTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 61, 400, -1));
 
         BookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Member", "ID", "Name", "Book", "Issue Date", "Return Date"
+                "ID", "Member", "Member ID", "Book ID", "Issue Date", "Return Date"
             }
         ));
         BookTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,6 +155,9 @@ public class IssueBook extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(BookTable);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 90, 540, 240));
+
+        jPanel1.setBackground(new java.awt.Color(150, 93, 93));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manage Books", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -165,15 +167,7 @@ public class IssueBook extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel4.setText("Books");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 124, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        jLabel5.setText("Issue Date");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 204, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        jLabel6.setText("Return Date");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 252, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
         issueBtn.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         issueBtn.setText("Issue");
@@ -182,38 +176,20 @@ public class IssueBook extends javax.swing.JFrame {
                 issueBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(issueBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 297, 88, -1));
-
-        DeleteBtn.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        DeleteBtn.setText("Delete");
-        DeleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(DeleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 297, 92, -1));
-
-        UpdateBtn.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
-        UpdateBtn.setText("Update");
-        UpdateBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(UpdateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 297, 95, -1));
+        jPanel1.add(issueBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 88, -1));
 
         BookBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 BookBoxItemStateChanged(evt);
             }
         });
-        jPanel1.add(BookBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 123, 269, -1));
+        jPanel1.add(BookBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 123, 160, -1));
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         jLabel8.setText("ID");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 77, -1, 28));
 
-        jPanel1.add(IdBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 82, 289, -1));
+        jPanel1.add(IdBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 82, 160, -1));
 
         SelecMem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Teacher", "Student" }));
         SelecMem.setSelectedIndex(-1);
@@ -235,19 +211,9 @@ public class IssueBook extends javax.swing.JFrame {
                 SelecMemActionPerformed(evt);
             }
         });
-        jPanel1.add(SelecMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 36, 289, -1));
-        jPanel1.add(IssueDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 198, 269, -1));
-        jPanel1.add(returnDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 246, 269, -1));
+        jPanel1.add(SelecMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 36, 160, -1));
 
-        bookLabel.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
-        jPanel1.add(bookLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 164, 120, 20));
-
-        bookLabel1.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
-        bookLabel1.setText("By");
-        jPanel1.add(bookLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 164, 34, -1));
-
-        authorLabel.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
-        jPanel1.add(authorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 164, 170, 20));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 300, 270));
 
         backBtn.setIcon(new javax.swing.ImageIcon("/home/rakibul/Documents/LibraryManagement/backIcon.png")); // NOI18N
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -255,58 +221,40 @@ public class IssueBook extends javax.swing.JFrame {
                 backBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(backBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, 63, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(412, 412, 412)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backBtn))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 15, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        pack();
+        setSize(new java.awt.Dimension(900, 395));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void issueBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueBtnActionPerformed
         // TODO add your handling code here:
-        String member , memberID , Booktitle , issueBook , retBook;
+        String member , memberID , BookIdString , issueBook , retBook;
         int copies , BookID;
+        member = SelecMem.getSelectedItem().toString();
+        memberID = IdBox.getSelectedItem().toString();
+        BookIdString = BookBox.getSelectedItem().toString();
+        issueBook = LocalDate.now().toString();
+        retBook = LocalDate.now().plusMonths(1).toString();
+        
+        try {
+            issue = (PreparedStatement) con.prepareStatement("insert into issueBook(member, memberID, BookID, iDate, rDate) values (?,?,?,?,?)");
+            issue.setString(1, member);
+            issue.setString(2, memberID);
+            issue.setString(3, BookIdString);
+            issue.setString(4, issueBook);
+            issue.setString(5, retBook);
+            int k = issue.executeUpdate();
+            if(k == 1){
+                JOptionPane.showMessageDialog(this, "Book Issued");
+                RemoveCopy();
+                Book_Load();
+                SelecMem.setSelectedIndex(-1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IssueBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         
     }//GEN-LAST:event_issueBtnActionPerformed
@@ -320,13 +268,13 @@ public class IssueBook extends javax.swing.JFrame {
 
     private void BookTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BookTableMouseClicked
         // TODO add your handling code here:
-//     int cpys;
-//     DefaultTableModel d=  (DefaultTableModel)BookTable.getModel();
-//     int selectedindex = BookTable.getSelectedRow();
-//     if(BookTable.getRowSorter()!= null){
-//         selectedindex = BookTable.getRowSorter().convertRowIndexToModel(selectedindex);
-//     }
-//     id = Integer.parseInt(d.getValueAt(selectedindex, 0).toString());
+     int cpys;
+     DefaultTableModel d=  (DefaultTableModel)BookTable.getModel();
+     int selectedindex = BookTable.getSelectedRow();
+     if(BookTable.getRowSorter()!= null){
+         selectedindex = BookTable.getRowSorter().convertRowIndexToModel(selectedindex);
+     }
+       id = Integer.parseInt(d.getValueAt(selectedindex, 0).toString());
 //     titleTxt.setText(d.getValueAt(selectedindex, 1).toString());
 //     IdBox.setSelectedItem(d.getValueAt(selectedindex,2).toString());
 //     BookBox.setSelectedItem(d.getValueAt(selectedindex, 3).toString());
@@ -348,74 +296,15 @@ public class IssueBook extends javax.swing.JFrame {
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_searchTxtKeyReleased
 
-    private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
-        // TODO add your handling code here:
-//          try {
-//            // TODO add your handling code here:
-//            delete = (PreparedStatement) con.prepareStatement("delete from StudentBooks where id=?");
-//            delete.setInt(1, id);
-//            int d1 = delete.executeUpdate();
-//            if(d1==1){
-//                JOptionPane.showMessageDialog(this, "Data Deleted");
-//                clearAll();
-//                Book_Load();
-//            }else{
-//                JOptionPane.showMessageDialog(this, "Error !!!");
-//                clearAll();
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(IssueBook.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-      clearAll();
-      SelecMem.setSelectedIndex(-1);
-    }//GEN-LAST:event_DeleteBtnActionPerformed
-
-    private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
-        // TODO add your handling code here:
-//         try {
-//             
-//            String title , author , publisher , selection , catString;
-//            int copies ;
-//        
-//            title = titleTxt.getText();
-//            catString = IdBox.getSelectedItem().toString();
-//            author = BookBox.getSelectedItem().toString();
-//            publisher = PubBox.getSelectedItem().toString();
-//            copies = (int)copiesTxt.getValue();
-//            selection = SelectFor.getSelectedItem().toString();
-//            // TODO add your handling code here:
-//            update = (PreparedStatement) con.prepareStatement("UPDATE StudentBooks SET title=?,category=?,author=?,publisher=?,copies=?,rec=? where id=?");
-//            
-//            update.setString(1, title);
-//            update.setString(2, catString);
-//            update.setString(3, author);
-//            update.setString(4, publisher);
-//            update.setInt(5, copies);
-//            update.setString(6, selection);
-//            update.setInt(7, id);
-//            int t = update.executeUpdate();
-//            if(t==1)
-//            {
-//                JOptionPane.showMessageDialog(this, "Table Updated");
-//                clearAll();
-//                Book_Load();
-//            }else{
-//                JOptionPane.showMessageDialog(this, "Error !!!!");
-//                clearAll();
-//            }
-//                    } catch (SQLException ex) {
-//            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_UpdateBtnActionPerformed
-
     private void SelecMemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SelecMemItemStateChanged
         // TODO add your handling code here:
         if(SelecMem.getSelectedIndex()== -1)
             clearAll();
         else{
-        String MemberInput = SelecMem.getSelectedItem().toString();
+        MemberInput = SelecMem.getSelectedItem().toString();
         IdBox.removeAllItems();
         IDLoad(MemberInput);
+            Books();
         }
         
     }//GEN-LAST:event_SelecMemItemStateChanged
@@ -436,21 +325,10 @@ public class IssueBook extends javax.swing.JFrame {
     }//GEN-LAST:event_SelecMemMousePressed
 
     private void BookBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_BookBoxItemStateChanged
-        // TODO add your handling code here:
+      
             
             
-            try {
-                pst = (PreparedStatement) con.prepareStatement("Select * from StudentBooks where id=?");
-               // pst.setString();
-                ResultSet rs = pst.executeQuery();
-                if(rs.next())
-                {
-                    bookLabel.setText(rs.getString("title"));
-                    authorLabel.setText(rs.getString("author"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(IssueBook.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
        
     }//GEN-LAST:event_BookBoxItemStateChanged
 
@@ -493,7 +371,7 @@ public class IssueBook extends javax.swing.JFrame {
     public void Book_Load(){
         
         try {
-            pst = (PreparedStatement) con.prepareStatement("SELECT * FROM StudentBooks");
+            pst = (PreparedStatement) con.prepareStatement("SELECT * FROM issueBook");
             ResultSet rs = pst.executeQuery();
             ResultSetMetaData rss = rs.getMetaData();
             DefaultTableModel df = (DefaultTableModel) BookTable.getModel();
@@ -501,15 +379,14 @@ public class IssueBook extends javax.swing.JFrame {
             while (rs.next()) {   
                 
                 String id = String.valueOf(rs.getInt("id"));
-                String title = rs.getString("title");
-                String catString = rs.getString("category");
-                String author = rs.getString("author");
-                String publisher = rs.getString("publisher");
-                String copies = String.valueOf(rs.getInt("copies"));
-                String rec = rs.getString("rec");
+                String membersString = rs.getString("member");
+                String memberidString = rs.getString("memberID");
+                String bookidString = rs.getString("BookID");
+                String idateString = rs.getString("iDate");
+                String rdateString = rs.getString("rDate");
                 
                 
-                String tbData[] = {id,title,catString,author,publisher,copies,rec};
+                String tbData[] = {id,membersString,memberidString,bookidString,idateString,rdateString};
                 df.addRow(tbData);
                 
             }
@@ -518,6 +395,21 @@ public class IssueBook extends javax.swing.JFrame {
         }
         
         
+    }
+    
+    public void RemoveCopy(){
+        
+        String bookString = BookBox.getSelectedItem().toString();
+        try {
+            update = (PreparedStatement) con.prepareStatement("update StudentBooks set copies = copies - 1 where id=?");
+            update.setString(1, bookString);
+            int l = update.executeUpdate();
+            if(l == 1){
+                System.out.println("updated");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IssueBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * @param args the command line arguments
@@ -558,26 +450,17 @@ public class IssueBook extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BookBox;
     private javax.swing.JTable BookTable;
-    private javax.swing.JButton DeleteBtn;
     private javax.swing.JComboBox<String> IdBox;
-    private com.toedter.calendar.JDateChooser IssueDate;
     private javax.swing.JComboBox<String> SelecMem;
-    private javax.swing.JButton UpdateBtn;
-    private javax.swing.JLabel authorLabel;
     private javax.swing.JButton backBtn;
-    private javax.swing.JLabel bookLabel;
-    private javax.swing.JLabel bookLabel1;
     private javax.swing.JButton issueBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.toedter.calendar.JDateChooser returnDate;
     private javax.swing.JTextField searchTxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -433,12 +433,13 @@ public class Member extends javax.swing.JFrame {
          try {
             // TODO add your handling code here:
             if(stat.equals("Teacher")){
-            update = (PreparedStatement) con.prepareStatement("UPDATE teacher SET name=?, userID=?, email=? , password = ? where teacherID=?");
+            update = (PreparedStatement) con.prepareStatement("UPDATE teacher SET name=?, userID=?, email=? , password = ? ,department = ? where teacherID=?");
             update.setString(1, name.getText());
             update.setString(2, RegUserId.getText());
             update.setString(3, email.getText());
             update.setString(4, regPass.getText());
-            update.setString(5, id);
+            update.setString(5, department.getText());
+            update.setString(6, id);
             int t = update.executeUpdate();
             if(t==1)
             {
