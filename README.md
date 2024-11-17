@@ -8,7 +8,7 @@ This is a **Library Management System** developed using **Java Swing** for the u
 - **User Registration**: Users can register and log in to borrow books.
 - **Book Management**: Admin can add, edit, delete, and view books.
 - **Borrowing Transactions**: Users can borrow and return books, and transaction details are logged.
-- **Database Integration**: SQLite database is used to store data persistently.
+- **Database Integration**: MySQL database is used to store data persistently.
 
 ---
 
