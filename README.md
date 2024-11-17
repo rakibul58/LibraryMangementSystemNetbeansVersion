@@ -1,6 +1,6 @@
 # Library Management System
 
-This is a **Library Management System** developed using **Java Swing** for the user interface and **SQLite** for the database. The system allows administrators to manage books, users, and borrowing transactions in a library environment.
+This is a **Library Management System** developed using **Java Swing** for the user interface and **MySQL** for the database. The system allows administrators to manage books, users, and borrowing transactions in a library environment.
 
 ## Features
 
@@ -18,7 +18,7 @@ Before running the project, ensure the following software is installed on your s
 
 1. **Java Development Kit (JDK)**: Version 8 or later.
 2. **NetBeans IDE** (recommended) or any Java-supported IDE.
-3. **SQLite** or **SQLite Studio** for database management (optional).
+3. **MySQL** for database management (optional).
 
 ---
 
@@ -36,11 +36,7 @@ git clone https://github.com/rakibul58/LibraryMangementSystem.git
 - Navigate to the folder where the repository was cloned and select the `LibraryManagementSystem` project.
 
 ### 3. Configure the Database
-1. Ensure the SQLite database file (`Library.db`) is present in the project directory.  
-2. If you need to create a new database:
-   - Open **SQLite Studio** or any SQLite editor.
-   - Create a database named `Library.db`.
-   - Run the SQL scripts provided in the `sql/` folder (if available) to create the required tables.
+1. Ensure the MySQL database file (`Library.db`) is present in the project directory. 
 
 ### 4. Build and Run the Project
 - In NetBeans, click on the **Run Project** button or press `F6`.
