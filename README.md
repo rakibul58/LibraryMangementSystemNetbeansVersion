@@ -33,7 +33,7 @@ git clone https://github.com/rakibul58/BookHive.git
 ### 2. Open the Project in Your IDE
 - Launch **NetBeans IDE** (or any IDE of your choice).
 - Go to **File** > **Open Project**.
-- Navigate to the folder where the repository was cloned and select the `EduEase` project.
+- Navigate to the folder where the repository was cloned and select the `BookHive` project.
 
 ### 3. Configure the Database
 1. Ensure the MySQL database file (`Library.db`) is present in the project directory. 
