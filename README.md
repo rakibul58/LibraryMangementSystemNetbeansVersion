@@ -1,4 +1,4 @@
-# Library Management System
+# BookHive
 
 This is a **Library Management System** developed using **Java Swing** for the user interface and **MySQL** for the database. The system allows administrators to manage books, users, and borrowing transactions in a library environment.
 
@@ -27,7 +27,7 @@ Before running the project, ensure the following software is installed on your s
 ### 1. Clone the Repository
 To get started, clone the repository to your local machine using the following command:
 ```bash
-git clone https://github.com/rakibul58/LibraryMangementSystem.git
+git clone https://github.com/rakibul58/BookHive.git
 ```
 
 ### 2. Open the Project in Your IDE
